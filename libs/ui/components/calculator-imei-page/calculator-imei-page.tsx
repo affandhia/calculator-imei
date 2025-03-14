@@ -86,11 +86,11 @@ const TaxCalculation = ({
   // Helper function to convert and format values based on selected currency
   const convertValue = (value: number): string => {
     if (selectedCurrency === 'SGD') {
-      return value * usdToSgdRate;
+      return String(value * usdToSgdRate);
     } else if (selectedCurrency === 'IDR') {
-      return value * usdToIdrRate;
+      return String(value * usdToIdrRate);
     } else {
-      return value;
+      return String(value);
     }
   };
 
