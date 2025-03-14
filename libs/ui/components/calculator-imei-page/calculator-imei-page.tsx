@@ -86,11 +86,11 @@ const TaxCalculation = ({
   // Helper function to convert and format values based on selected currency
   const convertValue = (value: number): string => {
     if (selectedCurrency === 'SGD') {
-      return (value * usdToSgdRate).toFixed(2);
+      return value * usdToSgdRate;
     } else if (selectedCurrency === 'IDR') {
-      return (value * usdToIdrRate).toFixed(0);
+      return value * usdToIdrRate;
     } else {
-      return value.toFixed(2);
+      return value;
     }
   };
 
@@ -134,8 +134,8 @@ const TaxCalculation = ({
       selectedCurrency === 'SGD'
         ? buffer / usdToSgdRate
         : selectedCurrency === 'IDR'
-        ? buffer / usdToIdrRate
-        : buffer;
+          ? buffer / usdToIdrRate
+          : buffer;
     const totalWithBuffer = priceUSD + totalTax + bufferInUSD;
     setTotalPriceWithBuffer(totalWithBuffer);
   }, [
@@ -150,7 +150,7 @@ const TaxCalculation = ({
   return (
     <>
       {/* Tax Relief section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label>{`${t('taxRelieveLabel')} (${getCurrencySuffix()})`}</Label>
           <Input readOnly disabled value={convertValue(taxRelieve)} />
@@ -167,7 +167,7 @@ const TaxCalculation = ({
 
       {/* Tax calculations section */}
       <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="pphAmount">{`${t(
               'pphAmountLabel'
@@ -192,7 +192,7 @@ const TaxCalculation = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="customImportTaxAmount">{`${t(
               'customImportTaxLabel'
@@ -217,7 +217,7 @@ const TaxCalculation = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="pph22Amount">{`${t(
               'pph22AmountLabel'
@@ -419,21 +419,21 @@ const IMEITaxCalculator = () => {
   };
 
   return (
-    <div className="w-full h-full p-4">
-      <Card className="w-full max-w-2xl mx-auto">
+    <div className="h-full w-full p-4">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
           <CardTitle className="text-center">{t('calculatorTitle')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Input section with multiple currencies */}
           <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="space-y-2">
                 <Label htmlFor="priceSGD">{t('priceInSgdLabel')}</Label>
                 <Input
                   id="priceSGD"
                   type="number"
-                  value={priceSGD.toFixed(2)}
+                  value={priceSGD}
                   onChange={(e) =>
                     handlePriceChange(parseFloat(e.target.value) || 0, 'SGD')
                   }
@@ -444,7 +444,7 @@ const IMEITaxCalculator = () => {
                 <Input
                   id="priceUSD"
                   type="number"
-                  value={priceUSD.toFixed(2)}
+                  value={priceUSD}
                   onChange={(e) =>
                     handlePriceChange(parseFloat(e.target.value) || 0, 'USD')
                   }
@@ -455,7 +455,7 @@ const IMEITaxCalculator = () => {
                 <Input
                   id="priceIDR"
                   type="number"
-                  value={priceIDR.toFixed(0)}
+                  value={priceIDR}
                   onChange={(e) =>
                     handlePriceChange(parseFloat(e.target.value) || 0, 'IDR')
                   }
@@ -463,13 +463,13 @@ const IMEITaxCalculator = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="space-y-2">
                 <Label htmlFor="bufferSGD">{t('bufferSgdLabel')}</Label>
                 <Input
                   id="bufferSGD"
                   type="number"
-                  value={bufferSGD.toFixed(2)}
+                  value={bufferSGD}
                   onChange={(e) =>
                     handleBufferChange(parseFloat(e.target.value) || 0, 'SGD')
                   }
@@ -480,7 +480,7 @@ const IMEITaxCalculator = () => {
                 <Input
                   id="bufferUSD"
                   type="number"
-                  value={bufferUSD.toFixed(2)}
+                  value={bufferUSD}
                   onChange={(e) =>
                     handleBufferChange(parseFloat(e.target.value) || 0, 'USD')
                   }
@@ -491,7 +491,7 @@ const IMEITaxCalculator = () => {
                 <Input
                   id="bufferIDR"
                   type="number"
-                  value={bufferIDR.toFixed(0)}
+                  value={bufferIDR}
                   onChange={(e) =>
                     handleBufferChange(parseFloat(e.target.value) || 0, 'IDR')
                   }
@@ -499,7 +499,7 @@ const IMEITaxCalculator = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="usdToSgdRate">{t('usdToSgdRateLabel')}</Label>
                 <Input
@@ -523,7 +523,7 @@ const IMEITaxCalculator = () => {
                   }
                 />
               </div>
-              <div className="space-y-2 col-span-full flex justify-center">
+              <div className="col-span-full flex justify-center space-y-2">
                 <Button
                   id="refreshRate"
                   disabled={isLoading}
@@ -570,7 +570,7 @@ const IMEITaxCalculator = () => {
                 />
                 <Label
                   htmlFor="sgdCheckbox"
-                  className="text-sm font-normal cursor-pointer"
+                  className="cursor-pointer text-sm font-normal"
                 >
                   {t('sgdLabel')}
                 </Label>
@@ -584,7 +584,7 @@ const IMEITaxCalculator = () => {
                 />
                 <Label
                   htmlFor="usdCheckbox"
-                  className="text-sm font-normal cursor-pointer"
+                  className="cursor-pointer text-sm font-normal"
                 >
                   {t('usdLabel')}
                 </Label>
@@ -598,7 +598,7 @@ const IMEITaxCalculator = () => {
                 />
                 <Label
                   htmlFor="idrCheckbox"
-                  className="text-sm font-normal cursor-pointer"
+                  className="cursor-pointer text-sm font-normal"
                 >
                   {t('idrLabel')}
                 </Label>
