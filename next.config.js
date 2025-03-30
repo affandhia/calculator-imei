@@ -7,6 +7,7 @@ const {
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
+  basePath: process.env.ENV === 'development' ? '/dev' : '',
 };
 
 module.exports = (phase) => {
